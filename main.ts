@@ -1,5 +1,14 @@
-scene.setBackgroundColor(9)
-let monkey = sprites.create(img`
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    comida.x = randint(0, scene.screenWidth() - 10)
+    comida.y = randint(0, scene.screenHeight() - 10)
+    monkey.changeScale(0.1, ScaleAnchor.Middle)
+    info.changeScoreBy(1)
+    info.startCountdown(10)
+})
+let comida: Sprite = null
+let monkey: Sprite = null
+scene.setBackgroundColor(7)
+monkey = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
     . . f d d d d e e e f . . . . . 
@@ -18,7 +27,7 @@ let monkey = sprites.create(img`
     . . . . f f f f f f f f f . . . 
     `, SpriteKind.Player)
 controller.moveSprite(monkey)
-let comida = sprites.create(img`
+comida = sprites.create(img`
     . . . . . . . 6 . . . . . . . . 
     . . . . . . 8 6 6 . . . 6 8 . . 
     . . . e e e 8 8 6 6 . 6 7 8 . . 
